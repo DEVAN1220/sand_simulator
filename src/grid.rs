@@ -41,28 +41,23 @@ impl Grid {
                     self.cells[y as usize][x as usize].has_updated = false;
                     continue;
                 }
-                match self.cells[y as usize][x as usize].cell_type {
-                    CellTypes::Sand => {
-                        if y < COLUMN {
-                            if self.cells[(y+1) as usize][x as usize].cell_type == CellTypes::Air {
-                                self.cells[y as usize][x as usize].cell_type = CellTypes::Air;
-                                self.cells[(y+1) as usize][x as usize].cell_type = CellTypes::Sand;
-                                self.cells[(y+1) as usize][x as usize].has_updated = true;
-                            } else if x > 0 
-                                && self.cells[(y+1)as usize][(x-1) as usize].cell_type == CellTypes::Air {
-                                    self.cells[(y)as usize][ x   as usize].cell_type  = CellTypes::Air;
-                                    self.cells[(y+1)as usize][(x-1) as usize].cell_type = CellTypes::Sand;
-                                    self.cells[(y+1)as usize][(x-1) as usize].has_updated = true;
-                                } else if x < ROW && self.cells[(y+1)as usize][(x+1) as usize].cell_type == CellTypes::Air {
-                                    self.cells[(y  )as usize][ x   as usize].cell_type  = CellTypes::Air;
-                                    self.cells[(y+1)as usize][(x+1) as usize].cell_type = CellTypes::Sand;
-                                    self.cells[(y+1)as usize][(x+1) as usize].has_updated = true;
+                if self.cells[y as usize][x as usize].cell_type == CellTypes::Sand && y < COLUMN {
+                    if self.cells[(y+1) as usize][x as usize].cell_type == CellTypes::Air {
+                        self.cells[y as usize][x as usize].cell_type = CellTypes::Air;
+                        self.cells[(y+1) as usize][x as usize].cell_type = CellTypes::Sand;
+                        self.cells[(y+1) as usize][x as usize].has_updated = true;
+                    } else if x > 0 
+                        && self.cells[(y+1)as usize][(x-1) as usize].cell_type == CellTypes::Air {
+                            self.cells[(y)as usize][ x   as usize].cell_type  = CellTypes::Air;
+                            self.cells[(y+1)as usize][(x-1) as usize].cell_type = CellTypes::Sand;
+                            self.cells[(y+1)as usize][(x-1) as usize].has_updated = true;
+                        } else if x < ROW && self.cells[(y+1)as usize][(x+1) as usize].cell_type == CellTypes::Air {
+                            self.cells[(y  )as usize][ x   as usize].cell_type  = CellTypes::Air;
+                            self.cells[(y+1)as usize][(x+1) as usize].cell_type = CellTypes::Sand;
+                            self.cells[(y+1)as usize][(x+1) as usize].has_updated = true;
 
-                                
-                            }
-                        }
+                        
                     }
-                    _ => (),
                 }
             }
         }
