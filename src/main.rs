@@ -29,15 +29,15 @@ fn main() {
         mouse_position = d.get_mouse_position();
         grid.update();
         grid.draw(&mut d);
-        if d.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT) &&
+        if d.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT) &&
                      (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 2.0) &&
                     (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 2.0)
         {
-            //for i in (mouse_position.y as usize)-5..(mouse_position.y as usize)+5{
-            //    for j in (mouse_position.x as usize)-5..(mouse_position.x as usize)+5{
-            grid.add_object(mouse_position, CellTypes::Sand);
-            //    }
-            //}
+            for i in -2..2 {
+                for j in -2..2 {
+                    grid.add_object(Vector2 { x: mouse_position.x + (i as f32 * CELL_SIZE.x) , y: mouse_position.y + (j as f32 * CELL_SIZE.y)}, CellTypes::Sand);
+                }
+            }
         }
 
     }   
