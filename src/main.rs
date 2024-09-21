@@ -30,8 +30,8 @@ fn main() {
         grid.update();
         grid.draw(&mut d);
         if d.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT) &&
-                     (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32 - 9.0) &&
-                    (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32 - 9.0)
+                     (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 2.0) &&
+                    (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 2.0)
         {
             //for i in (mouse_position.y as usize)-5..(mouse_position.y as usize)+5{
             //    for j in (mouse_position.x as usize)-5..(mouse_position.x as usize)+5{
