@@ -1,7 +1,7 @@
 use raylib::prelude::*;
 pub const WINDOW_HEIGHT: i32 = 400;
 pub const WINDOW_WIDTH: i32 = 400;
-pub const CELL_SIZE: Vector2 = Vector2 { x: (WINDOW_WIDTH / 40) as f32, y: (WINDOW_HEIGHT / 40) as f32};
+pub const CELL_SIZE: Vector2 = Vector2 { x: (WINDOW_WIDTH / 80) as f32, y: (WINDOW_HEIGHT / 80) as f32};
 pub const ROW: i32 = WINDOW_WIDTH / CELL_SIZE.x as i32;
 pub const COLUMN: i32 = WINDOW_HEIGHT / CELL_SIZE.y as i32 - 1;
 

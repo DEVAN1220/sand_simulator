@@ -1,5 +1,6 @@
 pub mod cell;
 pub mod grid;
+
 use raylib::prelude::*;
 use cell::*;
 use grid::*;
@@ -29,10 +30,14 @@ fn main() {
         grid.update();
         grid.draw(&mut d);
         if d.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT) &&
-                     (mouse_position.x > 0.0 || mouse_position.x < WINDOW_WIDTH as f32) &&
-                    (mouse_position.y > 0.0 || mouse_position.y < WINDOW_HEIGHT as f32)
+                     (mouse_position.x > 8.0 || mouse_position.x < WINDOW_WIDTH as f32 - 9.0) &&
+                    (mouse_position.y > 8.0 || mouse_position.y < WINDOW_HEIGHT as f32 - 9.0)
         {
-            grid.add_object(mouse_position, CellTypes::Sand);
+            for i in (mouse_position.y as usize)-5..(mouse_position.y as usize)+5{
+                for j in (mouse_position.x as usize)-5..(mouse_position.x as usize)+5{
+                    grid.add_object(Vector2 { x: j as f32, y: i as f32}, CellTypes::Sand);
+                }
+            }
         }
 
     }   
