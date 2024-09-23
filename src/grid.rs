@@ -10,8 +10,8 @@ impl Grid {
         let mut _grid = Grid {
             cells: [[Cell::default(); WINDOW_WIDTH as usize]; WINDOW_HEIGHT as usize],
         };
-        for col in 0..COLUMN+1 {
-            for row in 0..ROW+1 {
+        for col in 0..COLUMN {
+            for row in 0..ROW {
                 _grid.cells[col as usize][row as usize].position = Vector2 {
                     x: row as f32 * CELL_SIZE.x,
                     y: col as f32 * CELL_SIZE.y 
@@ -35,7 +35,7 @@ impl Grid {
         let dest =  self.cells[dy][dx];
 
         match cur_cell.cell_type {
-            CellTypes::Air =>  (true) ,
+            CellTypes::Air =>  true,
             CellTypes::Sand => {
                 if dest.cell_type == CellTypes::Air {
                     self.cells[cy][cx].cell_type = CellTypes::Air;
@@ -61,14 +61,13 @@ impl Grid {
                     CellTypes::Air => (),
                     CellTypes::Sand => {
                         if y < COLUMN as usize  { 
-                            if !self.move_to(x, y, x, y+1) && x >  0 {
-                                if !self.move_to(x, y, x-1, y+1) && x < ROW as usize {
+                            if !self.move_to(x, y, x, y+1) && x >  1 {
+                                if !self.move_to(x, y, x-1, y+1) && x + 1 < ROW as usize {
                                     self.move_to(x, y, x+1, y+1);
                                 }
                             }
                         }
                     }
-                    _ => ()
                 }
             }
         }
@@ -77,6 +76,7 @@ impl Grid {
     pub fn add_object(&mut self, r#position: Vector2, r#type: CellTypes) {
         let x: usize = (r#position.x.round() / CELL_SIZE.x) as usize;
         let y: usize = (r#position.y.round() / CELL_SIZE.y) as usize;
+        if x + 3 > ROW as usize || y + 3 > COLUMN as usize {return;}
         self.cells[y][x].change_type(r#type);
     }
 }

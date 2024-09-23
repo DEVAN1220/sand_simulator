@@ -31,12 +31,16 @@ fn main() {
         grid.draw(&mut d);
         d.draw_fps(10, 10);
         if d.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT) &&
-                     (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 2.0) &&
-                    (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 2.0)
+                     (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 4.0) &&
+                    (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 4.0)
         {
-            for i in -2..2 {
-                for j in -2..2 {
-                    grid.add_object(Vector2 { x: mouse_position.x + (i as f32 * CELL_SIZE.x) , y: mouse_position.y + (j as f32 * CELL_SIZE.y)}, CellTypes::Sand);
+            for i in -3..3 {
+                for j in -3..3 {
+                    grid.add_object(
+                        Vector2 { 
+                            x: mouse_position.x + (i as f32 * CELL_SIZE.x),
+                            y: mouse_position.y + (j as f32 * CELL_SIZE.y)},
+                            CellTypes::Sand);
                 }
             }
         }
