@@ -29,7 +29,8 @@ fn main() {
         mouse_position = d.get_mouse_position();
         grid.update();
         grid.draw(&mut d);
-        if d.is_mouse_button_pressed(MouseButton::MOUSE_BUTTON_LEFT) &&
+        d.draw_fps(10, 10);
+        if d.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT) &&
                      (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 2.0) &&
                     (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 2.0)
         {

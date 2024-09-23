@@ -1,7 +1,3 @@
-//use std::usize;
-
-
-
 use crate::cell::*;
 use raylib::prelude::*;
 
@@ -34,30 +30,45 @@ impl Grid {
         }
     }
 
+    pub fn move_to(&mut self, cx: usize, cy: usize, dx: usize, dy: usize) -> bool {  
+        let cur_cell =  self.cells[cy][cx];
+        let dest =  self.cells[dy][dx];
+
+        match cur_cell.cell_type {
+            CellTypes::Air =>  (true) ,
+            CellTypes::Sand => {
+                if dest.cell_type == CellTypes::Air {
+                    self.cells[cy][cx].cell_type = CellTypes::Air;
+                    self.cells[dy][dx].cell_type = CellTypes::Sand;
+                    self.cells[dy][dx].has_updated = true;
+                    true
+                }  else {
+                    false
+                }
+            }
+        }
+    }
+
+
     pub fn update(&mut self) {
-        for y in 0..COLUMN {
-            for x in 0..ROW {
-                if self.cells[y as usize][x as usize].has_updated {
-                    self.cells[y as usize][x as usize].has_updated = false;
+        for y in 0..COLUMN as usize{
+            for x in 0..ROW as usize{
+                if self.cells[y][x].has_updated {
+                    self.cells[y][x].has_updated = false;
                     continue;
                 }
-                if self.cells[y as usize][x as usize].cell_type == CellTypes::Sand && y < COLUMN {
-                    if self.cells[(y+1) as usize][x as usize].cell_type == CellTypes::Air {
-                        self.cells[y as usize][x as usize].cell_type = CellTypes::Air;
-                        self.cells[(y+1) as usize][x as usize].cell_type = CellTypes::Sand;
-                        self.cells[(y+1) as usize][x as usize].has_updated = true;
-                    } else if x > 0 
-                        && self.cells[(y+1)as usize][(x-1) as usize].cell_type == CellTypes::Air {
-                            self.cells[(y)as usize][ x   as usize].cell_type  = CellTypes::Air;
-                            self.cells[(y+1)as usize][(x-1) as usize].cell_type = CellTypes::Sand;
-                            self.cells[(y+1)as usize][(x-1) as usize].has_updated = true;
-                        } else if x < ROW && self.cells[(y+1)as usize][(x+1) as usize].cell_type == CellTypes::Air {
-                            self.cells[(y  )as usize][ x   as usize].cell_type  = CellTypes::Air;
-                            self.cells[(y+1)as usize][(x+1) as usize].cell_type = CellTypes::Sand;
-                            self.cells[(y+1)as usize][(x+1) as usize].has_updated = true;
-
-                        
+                match self.cells[y][x].cell_type {
+                    CellTypes::Air => (),
+                    CellTypes::Sand => {
+                        if y < COLUMN as usize  { 
+                            if !self.move_to(x, y, x, y+1) && x >  0 {
+                                if !self.move_to(x, y, x-1, y+1) && x < ROW as usize {
+                                    self.move_to(x, y, x+1, y+1);
+                                }
+                            }
+                        }
                     }
+                    _ => ()
                 }
             }
         }
