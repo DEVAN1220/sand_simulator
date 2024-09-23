@@ -31,8 +31,8 @@ fn main() {
         grid.draw(&mut d);
         d.draw_fps(10, 10);
         if d.is_mouse_button_down(MouseButton::MOUSE_BUTTON_LEFT) &&
-                     (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 4.0) &&
-                    (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 4.0)
+                     (mouse_position.x >  0.0 || mouse_position.x < WINDOW_WIDTH as f32  - 3.0) &&
+                    (mouse_position.y >  0.0 || mouse_position.y < WINDOW_HEIGHT as f32  - 3.0)
         {
             for i in -3..3 {
                 for j in -3..3 {
