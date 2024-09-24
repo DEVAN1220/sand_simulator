@@ -60,12 +60,8 @@ impl Grid {
                 match self.cells[y][x].cell_type {
                     CellTypes::Air => (),
                     CellTypes::Sand => {
-                        if y < COLUMN as usize  { 
-                            if !self.move_to(x, y, x, y+1) && x >  0 {
-                                if !self.move_to(x, y, x-1, y+1) && x + 1 < ROW as usize {
-                                    self.move_to(x, y, x+1, y+1);
-                                }
-                            }
+                        if y < COLUMN as usize && !self.move_to(x, y, x, y+1) && x >  0 && !self.move_to(x, y, x-1, y+1) && x + 1 < ROW as usize {
+                            self.move_to(x, y, x+1, y+1);
                         }
                     }
                 }
